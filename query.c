@@ -21,6 +21,23 @@ void print_usage(char *argv[]);
 void remove_spaces(char *dest, char *src)
 {
     // TODO
+    if (src != NULL){
+        int i = 0;
+        int j = 0;
+        for (i = 0; i < (int) strlen(src); i++) {
+            if ( (int)(*(src + i)) == 32) {
+                continue;
+            } else {
+                *(dest + j) = *(src + i);
+                j++;
+            }
+        }
+        *(dest + j) = '\0';
+    } else {
+        return;
+    }
+
+
 }
 
 /**
