@@ -78,6 +78,32 @@ size_t copy_token(char *dest, char *src, char *delim)
 int key_to_col(char *line, char *key)
 {
     // TODO
+    if (line == NULL) {
+        return -1;
+    }
+    if (key == NULL) {
+        return -1;
+    }
+    int i = 0;
+    char* delim = ",";
+    char* token = strtok(line, delim);
+    while (token != NULL) {
+        if (strlen(token) == strlen(key)) {
+            if (memcmp(token, key, strlen(token) == 0)) {
+                free(delim);
+                free(token);
+                return i;
+            } else {
+                token = strtok(NULL, delim);
+            }
+        } else {
+            token = strtok(NULL, delim);
+        }
+    }
+    free(delim);
+    free(token);
+    return -1;
+
     return -1;
 }
 
