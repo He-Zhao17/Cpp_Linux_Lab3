@@ -54,7 +54,17 @@ void remove_spaces(char *dest, char *src)
 size_t copy_token(char *dest, char *src, char *delim)
 {
     // TODO
-    return 0;
+    if (dest == NULL) {
+        return -1;
+    }
+    if (src == NULL) {
+        return -1;
+    }
+    char* token = strsep(src, delim);
+    dest = (char*) calloc (1,sizeof(token));
+    free(token);
+    memcpy(dest, token, sizeof(token));
+    return sizeof(dest);
 }
 
 /**
