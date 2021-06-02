@@ -60,11 +60,10 @@ size_t copy_token(char *dest, char *src, char *delim)
     if (src == NULL) {
         return -1;
     }
-    char* token = strsep(src, delim);
-    dest = (char*) calloc (1,sizeof(token));
-    free(token);
+    char* token = strtok(src, delim);
     memcpy(dest, token, sizeof(token));
-    return sizeof(dest);
+    free(token);
+    return strlen(dest);
 }
 
 /**
@@ -103,8 +102,6 @@ int key_to_col(char *line, char *key)
     free(delim);
     free(token);
     return -1;
-
-    return -1;
 }
 
 /**
@@ -120,7 +117,30 @@ int key_to_col(char *line, char *key)
 size_t find_col(char *line, int column)
 {
     // TODO
-    return 0;
+    if (line == NULL) {
+        return -1;
+    }
+    if (column < 0) {
+        return -1;
+    }
+    char *delim = ",";
+    char *token = strsep(line, delim);
+    int index = 0;
+    size_t res = 0;
+    while (token != NULL) {
+        if (index == column) {
+            free(delim);
+            token = strsep(line, delim);
+            line = token;
+            free(token);
+            return res;
+        } else {
+            token = strsep(line, delim);
+            index++;
+            res += strlen(token);
+        }
+    }
+    return -1;
 }
 
 /**
